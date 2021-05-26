@@ -10,13 +10,15 @@ public class MazeRenderer : MonoBehaviour
     [SerializeField] private float size = 1f;
     [SerializeField] private Transform wallPrefab = null;
     [SerializeField] private GameObject floorGameObject = null;
-    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject player = null;
+    [SerializeField] private GameObject end = null;
     private int seed = new System.Random().Next();
 
 
     void Start()
     {
-        player.transform.position=new Vector3(width*size*wallPrefab.localScale.x/2-size/2,-height*size*wallPrefab.localScale.y+size/2,0f);
+        player.transform.position = new Vector3(width*size*wallPrefab.localScale.x/2-size/2,-height*size*wallPrefab.localScale.y+size/2,0f);
+        end.transform.position = new Vector3(-width*size*wallPrefab.localScale.x/2+size/2,height*size*wallPrefab.localScale.y-size/2,0f);
         // TODO: floor moves with the camera
         floorGameObject.transform.localScale = new Vector3(Math.Max(width*0.08f,1), Math.Max(height*0.08f,1), 1); 
         WallState[,] maze = MazeGenerator.Generate(width, height, seed);
